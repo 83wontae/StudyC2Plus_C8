@@ -64,4 +64,22 @@ int main()
 	// 낮은 숫자 순서대로 출력
 	int arr[10] = { 10, 3, 76, 54, 42, 13, 34, 28, 99, 7 };
 
+	for (int i = 0; i < 10; ++i)
+	{
+		int lowest = i;
+		for (int j = i+1; j < 10; ++j)
+		{
+			if (arr[lowest] > arr[j])
+				lowest = j;
+		}
+
+		int temp = arr[lowest];
+		arr[lowest] = arr[i];
+		arr[i] = temp;
+	}
+
+	for (int itr : arr)
+	{
+		cout << itr << " ";
+	}
 }
