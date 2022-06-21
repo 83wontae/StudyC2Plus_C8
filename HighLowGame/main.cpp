@@ -2,6 +2,7 @@
 #include "Card.h"
 #include "Common.h"
 #include "Initialize.h"
+#include "Shuffle.h"
 
 /*
 1. 52개의 카드를 가지고 시작
@@ -20,21 +21,7 @@ using namespace std;
 void main()
 {
 	Initialize();
-
-	// 카드 섞기
-	/*
-	srand((unsigned int)time(NULL));
-
-	for (int i = 0; i < 52; i++)
-	{
-		int FirstNumber = rand() % 52;
-		int SecondNumber = rand() % 52;
-
-		stCard Temp = card[FirstNumber];
-		card[FirstNumber] = card[SecondNumber];
-		card[SecondNumber] = Temp;
-	}
-	*/
+	Shuffle();
 
 	// 카드 출력
 	for (int i = 0; i < Max; ++i)

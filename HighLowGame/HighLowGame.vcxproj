@@ -145,11 +145,13 @@
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Initialize.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Shuffle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Card.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Initialize.h" />
+    <ClInclude Include="Shuffle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
