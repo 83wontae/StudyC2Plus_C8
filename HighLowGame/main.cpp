@@ -29,15 +29,10 @@ bool CompareCard(const stCard& CardA, const stCard& CardB)
 	// (크기 비교 조건) Number : 1 ~ 13 숫자가 높을수록 높은 카드
 	// (크기 비교 조건) Number가 같다면 
 	// 스페이트 > 다이아 > 하트 > 클로버 순으로 높을수록 높은 카드
-	if (CardA.number == CardB.number) {
-		if (CardA.mark > CardB.mark) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	else if (CardA.number > CardB.number) {
+	int CardAScore = CardA.number * 10 + CardA.mark;
+	int CardBScore = CardB.number * 10 + CardB.mark;
+	// if (CardA.number * 10 + CardA.mark > CardB.number * 10 + CardB.mark) {
+	if (CardAScore > CardBScore) {
 		return true;
 	}
 	else {
@@ -45,45 +40,56 @@ bool CompareCard(const stCard& CardA, const stCard& CardB)
 	}
 }
 
+// 함수이름 : GameResult
+// 파라메타 : 
+// const stCard& CardA = 비교할 stCard형 변수 
+// const stCard& CardB = 비요할 stCard형 변수
+// const char& chChoose = 선택한 문자
+// 반환값 : 없음
+// 함수기능 
+// chChoose가 'H'고 (CardB > CardA) 이면 "승리" 출력 아니면 "패배" 출력
+// chChoose가 'L'고 (CardB < CardA) 이면 "승리" 출력 아니면 "패배" 출력
+void GameResult(const stCard& CardA, const stCard& CardB, const char& chChoose)
+{
+	switch (chChoose)
+	{
+	case 'H':
+		if (CompareCard(CardA, CardB)) {
+			cout << "패배" << endl;
+		}
+		else {
+			cout << "승리" << endl;
+		}
+		break;
+	case 'L':
+		if (CompareCard(CardA, CardB)) {
+			cout << "승리" << endl;
+		}
+		else {
+			cout << "패배" << endl;
+		}
+		break;
+	}
+
+}
+
 void main()
 {
 	Initialize(); // 카드 52장의 정보를 넣어준다.
-	Shuffle(); // 카드를 섞는다.
-
-	// 0번 카드 출력
-	cards[0].printCard();
-	char chChoose = ' ';
-	cin >> chChoose;
-	// chChoose가 'H'고 (cards[1] > cards[0]) 이면 "승리" 출력 아니면 "패배" 출력
-	// chChoose가 'L'고 (cards[1] < cards[0]) 이면 "승리" 출력 아니면 "패배" 출력
-	switch (chChoose)
+	
+	while (true)
 	{
-	case 'H' :
-		if (CompareCard(cards[0], cards[1]))	{
-			cout << "패배" << endl;
-		}
-		else {
-			cout << "승리" << endl;
-		}
-		break;
-	case 'L' :
-		if (CompareCard(cards[0], cards[1])) {
-			cout << "승리" << endl;
-		}
-		else {
-			cout << "패배" << endl;
-		}
-		break;
+		Shuffle(); // 카드를 섞는다.
+
+		// 0번 카드 출력
+		cout << "첫번째 카드 : ";
+		cards[0].printCard();
+		char chChoose = ' ';
+		cin >> chChoose;
+
+		GameResult(cards[0], cards[1], chChoose);
+
+		cout << "두번째 카드 : ";
+		cards[1].printCard();
 	}
-
-
-
-	cards[1].printCard();
-	// 카드 출력
-	/*
-	for (int i = 0; i < Max; ++i)
-	{
-		cout << "Mark = " << cards[i].mark << " Number = " << cards[i].number << endl;
-	}
-	*/
 }

@@ -88,6 +88,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,7 +141,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="funcAverage.cpp" />
+    <ClCompile Include="funcDivid.cpp" />
+    <ClCompile Include="funcFmulit.cpp" />
+    <ClCompile Include="funcMinues.cpp" />
+    <ClCompile Include="funcMulti.cpp" />
+    <ClCompile Include="funcRemain.cpp" />
+    <ClCompile Include="funcSum.cpp" />
+    <ClCompile Include="funcSum3.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="funcAverage.h" />
+    <ClInclude Include="funcDivid.h" />
+    <ClInclude Include="funcFmulit.h" />
+    <ClInclude Include="funcMinues.h" />
+    <ClInclude Include="funcMulti.h" />
+    <ClInclude Include="funcRemain.h" />
+    <ClInclude Include="funcSum.h" />
+    <ClInclude Include="funcSum3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

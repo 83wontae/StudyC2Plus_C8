@@ -10,8 +10,15 @@
 
 using namespace std;
 
+// multi2(5) == 5*5
+// multi2(5+1) == 5+1*5+1
+#define multi2(x) x*x
+
 int main()
 {
+	int r = multi2(5 + 1);
+	cout << r << endl;
+
 	int Sum = 0;//Sum이라는 int형 변수를 생성하고 0으로 초기화
 	int a, b = 0;
 	char c = 0;
