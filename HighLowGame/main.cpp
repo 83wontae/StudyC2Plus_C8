@@ -49,7 +49,8 @@ bool CompareCard(const stCard& CardA, const stCard& CardB)
 // 함수기능 
 // chChoose가 'H'고 (CardB > CardA) 이면 "승리" 출력 아니면 "패배" 출력
 // chChoose가 'L'고 (CardB < CardA) 이면 "승리" 출력 아니면 "패배" 출력
-void GameResult(const stCard& CardA, const stCard& CardB, const char& chChoose)
+void GameResult(const stCard& CardA, const stCard& CardB, const char& chChoose, 
+	int& money, const int& beatMoney)
 {
 	switch (chChoose)
 	{
@@ -59,11 +60,13 @@ void GameResult(const stCard& CardA, const stCard& CardB, const char& chChoose)
 		}
 		else {
 			cout << "승리" << endl;
+			money += beatMoney * 2;
 		}
 		break;
 	case 'L':
 		if (CompareCard(CardA, CardB)) {
 			cout << "승리" << endl;
+			money += beatMoney * 2;
 		}
 		else {
 			cout << "패배" << endl;
@@ -73,23 +76,73 @@ void GameResult(const stCard& CardA, const stCard& CardB, const char& chChoose)
 
 }
 
+enum EnGameState
+{
+	Ready = 0,
+	Beating,
+	Playing
+};
+
 void main()
 {
+	int money = 10000;
+	int beatMoney = 0;
+	// 배팅하는 기능을 추가해 봅시다.
+	// Ready에서 'Y'를 입력하면 Beating으로 진행한다.
+	// "얼마를 배팅하시겠습니까?"라고 텍스트 출력합니다.
+	// 배팅할 금액을 입력 합니다.
+	// 승리시 배팅 금액에 2배를 money에 추가 , 패배시 배팅 금액을 money에서 차감
+
 	Initialize(); // 카드 52장의 정보를 넣어준다.
+	bool IsPlaying = true;
+	EnGameState gs = Ready;
 	
-	while (true)
+	while (IsPlaying)
 	{
-		Shuffle(); // 카드를 섞는다.
+		switch (gs)
+		{
+		case Ready:
+			cout << "소지금 : " << money << endl;
+			cout << "게임을 플레이 하시겠습니까?(Y/N)" << endl;
+			char chPlaying;
+			cin >> chPlaying;
+			switch (chPlaying)
+			{
+			case 'Y':
+				gs = Beating;
+				system("cls");
+				break;
+			case 'N':
+				IsPlaying = false;
+				break;
+			default:
+				break;
+			}
+			break;
 
-		// 0번 카드 출력
-		cout << "첫번째 카드 : ";
-		cards[0].printCard();
-		char chChoose = ' ';
-		cin >> chChoose;
+		case Beating:
+			cout << "소지금 : " << money << endl;
+			cout << "얼마를 배팅하시겠습니까?" << endl;
+			cin >> beatMoney;
+			money -= beatMoney;
+			gs = Playing;
+			break;
 
-		GameResult(cards[0], cards[1], chChoose);
+		case Playing:
+			Shuffle(); // 카드를 섞는다.
 
-		cout << "두번째 카드 : ";
-		cards[1].printCard();
+			// 0번 카드 출력
+			cout << "첫번째 카드 : ";
+			cards[0].printCard();
+			char chChoose = ' ';
+			cin >> chChoose;
+
+			GameResult(cards[0], cards[1], chChoose, money, beatMoney);
+
+			cout << "두번째 카드 : ";
+			cards[1].printCard();
+			gs = Ready;
+			break;
+		}
 	}
 }
