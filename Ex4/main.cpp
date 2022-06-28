@@ -55,6 +55,7 @@ struct Storage
 	bool Tick()
 	{
 		int Order = 0;
+		int a, b, c = { 0 };
 		cout << "감자 : " << Potato << " 양파 : " << Onion << " 당근 : " << Carrot << endl;
 		cout << "0) 창고 선택으로 돌아갑니다." << endl;
 		cout << "1) 창고에 채소를 넣습니다." << endl;
@@ -66,10 +67,14 @@ struct Storage
 			return true; // TargetStorage 변경 처리
 			break;
 		case 1:
-			int a, b, c = { 0 };
-			cout << "감자 양파 당근 순서대로 넣을 채소를 입력하세요." << endl;
+			cout << "감자 양파 당근 순서대로 넣을 채소 수량를 입력하세요." << endl;
 			cin >> a >> b >> c;
 			AddVege(a, b, c);
+			break;
+		case 2:
+			cout << "감자 양파 당근 순서대로 꺼낼 채소 수량를 입력하세요." << endl;
+			cin >> a >> b >> c;
+			MinuesVege(a, b, c);
 			break;
 		}
 		return false;
