@@ -1,5 +1,5 @@
-name=aaa age=20 score=1.1
-name=bbb age=30 score=2.1
-name=ccc age=40 score=3.1
-name=ddd age=50 score=4.1
-name=eee age=60 score=5.1
+name  =  aaa,   age=20,  score=1.1
+name =  bbb,  age=30,   score=2.1
+name  =  ccc, age=40,    score=3.1
+name  =  ddd,  age=50,   score=4.1
+name  =  eee,   age=60,  score=5.1

@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <Windows.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -32,18 +33,53 @@ vector<string> StringCutByKey(const string& source, char key)
 	int findKey = 0;
 	while (true)
 	{
-		int temp = source.find(" ", findKey);
+		int temp = source.find(key, findKey);
 		if (temp == string::npos)
 			break;
 
-		arrStr.push_back(source.substr(findKey, temp - findKey));
+		string out = source.substr(findKey, temp - findKey);
+		out.erase(remove(out.begin(), out.end(), ' '), out.end());
+		arrStr.push_back(out);
 		findKey = temp + 1;
 	}
 
-	arrStr.push_back(source.substr(findKey));
+	string out = source.substr(findKey);
+	out.erase(remove(out.begin(), out.end(), ' '), out.end());
+	arrStr.push_back(out);
 
 	return arrStr;
 }
+
+/*
+* 함수이름 : ReadStudent
+* 파라메타 : student& st, const string& str
+* 반환값 : 없음
+* 함수동작 : str의 값을 읽어서 st에 넣는다.
+* ex) str이 "name=aaa, age=20, score=1.1"이라면
+* st.name = "aaa"
+* st.age = 20
+* st.score = 1.1
+*/
+void ReadStudent(student& st, const string& str)
+{
+	vector<string> arrStr = StringCutByKey(str, ',');
+
+	for (string s : arrStr)
+	{
+		string left, right;
+		StringCutHalfwithKey(s, '=', left, right);
+		if (left == "name") {
+			st.name = right;
+		}
+		else if (left == "age") {
+			st.age = stoi(right);
+		}
+		else if (left == "score") {
+			st.score = stof(right);
+		}
+	}
+}
+
 
 int main()
 {
@@ -69,23 +105,7 @@ int main()
 		while (getline(file, line))
 		{
 			student st;
-			vector<string> arrStr = StringCutByKey(line, ' ');
-
-			for (string s : arrStr)
-			{
-				string left, right;
-				StringCutHalfwithKey(s, '=', left, right);
-				if (left == "name")	{
-					st.name = right;
-				}
-				else if (left == "age")	{
-					st.age = stoi(right);
-				}
-				else if (left == "score")	{
-					st.score = stof(right);
-				}
-			}
-
+			ReadStudent(st, line);
 			arrSd.push_back(st);
 		}
 		file.close();
