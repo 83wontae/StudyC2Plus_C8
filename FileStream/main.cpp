@@ -79,8 +79,12 @@ void ReadStudent(student& st, const string& str)
 		}
 	}
 }
-
-
+/*
+bool compare(student a, student b)
+{
+	return a.age < b.age;
+}
+*/
 int main()
 {
 	/*
@@ -113,6 +117,12 @@ int main()
 	else {
 		cout << "파일 읽기를 실패했습니다." << endl;
 	}
+
+	sort(arrSd.begin(), arrSd.end(), 
+		[](student a, student b) {
+			return a.age > b.age;
+		}
+	);
 
 	for (student s : arrSd)
 	{
